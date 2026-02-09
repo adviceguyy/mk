@@ -1,0 +1,108 @@
+2026-02-04 16:21:46.10
+c69085ac
+User
+GET /api/auth/config/google 304 in 1ms :: {"clientId":"646849092590-fr8jksltsbn…
+2026-02-04 16:21:47.39
+c69085ac
+User
+line: '3722',
+2026-02-04 16:21:47.39
+c69085ac
+User
+hint: undefined,
+2026-02-04 16:21:47.39
+c69085ac
+User
+detail: undefined,
+2026-02-04 16:21:47.39
+c69085ac
+User
+schema: undefined,
+2026-02-04 16:21:47.39
+c69085ac
+User
+length: 120,
+2026-02-04 16:21:47.39
+c69085ac
+User
+at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2026-02-04 16:21:47.39
+c69085ac
+User
+constraint: undefined,
+2026-02-04 16:21:47.39
+c69085ac
+User
+table: undefined,
+2026-02-04 16:21:47.39
+c69085ac
+User
+}
+2026-02-04 16:21:47.39
+c69085ac
+User
+severity: 'ERROR',
+2026-02-04 16:21:47.39
+c69085ac
+User
+at async file:///home/runner/workspace/node_modules/drizzle-orm/node-postgres/session.js:83:22
+2026-02-04 16:21:47.39
+c69085ac
+User
+internalPosition: undefined,
+2026-02-04 16:21:47.39
+c69085ac
+User
+internalQuery: undefined,
+2026-02-04 16:21:47.39
+c69085ac
+User
+dataType: undefined,
+2026-02-04 16:21:47.39
+c69085ac
+User
+column: undefined,
+2026-02-04 16:21:47.39
+c69085ac
+User
+where: undefined,
+2026-02-04 16:21:47.39
+c69085ac
+User
+OAuth callback error: error: column "subscription_active" does not exist
+2026-02-04 16:21:47.39
+c69085ac
+User
+at async findOrCreateUser (file:///home/runner/workspace/server_dist/index.mjs:4640:25)
+2026-02-04 16:21:47.39
+c69085ac
+User
+at /home/runner/workspace/node_modules/pg-pool/index.js:45:11
+2026-02-04 16:21:47.39
+c69085ac
+User
+code: '42703',
+2026-02-04 16:21:47.39
+c69085ac
+User
+position: '120',
+2026-02-04 16:21:47.39
+c69085ac
+User
+at async file:///home/runner/workspace/server_dist/index.mjs:6336:22 {
+2026-02-04 16:21:47.39
+c69085ac
+User
+file: 'parse_relation.c',
+2026-02-04 16:21:47.39
+c69085ac
+User
+routine: 'errorMissingColumn'
+2026-02-04 16:21:47.39
+c69085ac
+User
+POST /api/auth/callback/google 500 in 363ms :: {"error":"Authentication failed.…
+2026-02-04 16:21:47.39
+c69085ac
+User
+POST /api/auth/callback/google 500 in 363ms :: {"error":"Authentication failed.…

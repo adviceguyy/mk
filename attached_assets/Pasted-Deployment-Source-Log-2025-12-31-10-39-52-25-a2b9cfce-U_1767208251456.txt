@@ -1,0 +1,263 @@
+Deployment
+Source
+Log
+2025-12-31 10:39:52.25
+a2b9cfce
+User
+express server serving on port 8081
+2025-12-31 10:51:28.41
+3e7dc68a
+User
+Serving static Expo files with dynamic manifest routing
+2025-12-31 10:51:28.70
+3e7dc68a
+User
+WebSocket server initialized on /ws/messages
+2025-12-31 10:51:28.70
+3e7dc68a
+User
+express server serving on port 8081
+2025-12-31 10:51:28.80
+3e7dc68a
+User
+[Three Tears] App already registered with ID: f908a362-45e4-40fb-9c80-d52fb4bcaa69. Sending heartbeat...
+2025-12-31 10:51:28.94
+3e7dc68a
+User
+[Three Tears] Heartbeat sent successfully
+2025-12-31 10:51:40.70
+3e7dc68a
+User
+GET /api/subscription 304 in 292ms :: {"tierSlug":"tier_5","subscriptionCredits…
+2025-12-31 10:51:40.98
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 97ms :: {"count":0}
+2025-12-31 10:51:41.19
+3e7dc68a
+User
+GET /api/posts/trending 304 in 291ms :: {"posts":[]}
+2025-12-31 10:51:41.19
+3e7dc68a
+User
+GET /api/posts/trending 304 in 291ms :: {"posts":[]}
+2025-12-31 10:52:11.80
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 307ms :: {"count":0}
+2025-12-31 10:52:21.80
+3e7dc68a
+User
+[Billing] Local dev mode - returning mock checkout URL for tier: tier_15
+2025-12-31 10:52:21.84
+3e7dc68a
+User
+GET /api/billing/get-checkout-url 200 in 104ms :: {"checkout_url":"http://local…
+2025-12-31 10:52:30.49
+3e7dc68a
+User
+[Billing] Local dev mode - returning mock checkout URL for pack: pack_500
+2025-12-31 10:52:30.52
+3e7dc68a
+User
+GET /api/billing/get-pack-checkout-url 200 in 94ms :: {"checkout_url":"http://l…
+2025-12-31 10:52:38.13
+3e7dc68a
+User
+GET /api/subscription 304 in 91ms :: {"tierSlug":"tier_5","subscriptionCredits"…
+2025-12-31 10:52:38.38
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 91ms :: {"count":0}
+2025-12-31 10:52:38.59
+3e7dc68a
+User
+GET /api/posts/trending 304 in 292ms :: {"posts":[]}
+2025-12-31 10:53:09.06
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 299ms :: {"count":0}
+2025-12-31 10:53:12.36
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 91ms :: {"count":0}
+2025-12-31 10:53:39.16
+3e7dc68a
+User
+GET /api/admin/metrics 200 in 466ms :: {"metrics":{"totalUsers":11,"activeSessi…
+2025-12-31 10:53:39.32
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 92ms :: {"count":0}
+2025-12-31 10:56:29.21
+a2b9cfce
+System
+system: received signal terminated
+2025-12-31 11:04:24.61
+3e7dc68a
+User
+POST /api/admin/command 200 in 901ms :: {"message":"Subscription updated","user…
+2025-12-31 11:04:24.73
+3e7dc68a
+User
+POST /api/admin/command 200 in 98ms :: {"message":"User enabled","user":{"id":"…
+2025-12-31 11:04:31.58
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 196ms :: {"count":0}
+2025-12-31 11:04:34.44
+3e7dc68a
+User
+GET /api/subscription 304 in 95ms :: {"tierSlug":"tier_5","subscriptionCredits"…
+2025-12-31 11:04:34.66
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 96ms :: {"count":0}
+2025-12-31 11:04:34.94
+3e7dc68a
+User
+GET /api/posts/trending 304 in 317ms :: {"posts":[]}
+2025-12-31 11:04:43.31
+3e7dc68a
+User
+GET /api/subscription 304 in 92ms :: {"tierSlug":"tier_5","subscriptionCredits"…
+2025-12-31 11:04:43.56
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 91ms :: {"count":0}
+2025-12-31 11:04:43.57
+3e7dc68a
+User
+GET /api/posts/trending 304 in 93ms :: {"posts":[]}
+2025-12-31 11:05:07.85
+3e7dc68a
+User
+GET /api/auth/config/google 304 in 2ms :: {"clientId":"466645918184-qba6tnf1i78…
+2025-12-31 11:05:09.17
+3e7dc68a
+User
+POST /api/auth/callback/google 200 in 484ms :: {"sessionToken":"131dfb433d5fda5…
+2025-12-31 11:05:09.44
+3e7dc68a
+User
+[Sync] Event pushed successfully: user.updated
+2025-12-31 11:05:09.44
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 100ms :: {"count":0}
+2025-12-31 11:05:09.46
+3e7dc68a
+User
+GET /api/posts/trending 304 in 97ms :: {"posts":[]}
+2025-12-31 11:05:11.46
+3e7dc68a
+User
+GET /api/admin/metrics 200 in 290ms :: {"metrics":{"totalUsers":11,"activeSessi…
+2025-12-31 11:05:39.93
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 287ms :: {"count":0}
+2025-12-31 11:05:51.57
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 280ms :: {"count":0}
+2025-12-31 11:06:04.96
+3e7dc68a
+User
+POST /api/admin/command 200 in 285ms :: {"message":"Subscription updated","user…
+2025-12-31 11:06:05.08
+3e7dc68a
+User
+POST /api/admin/command 200 in 93ms :: {"message":"User enabled","user":{"id":"…
+2025-12-31 11:06:28.39
+3e7dc68a
+User
+GET /api/subscription 304 in 320ms :: {"tierSlug":"tier_5","subscriptionCredits…
+2025-12-31 11:06:28.67
+3e7dc68a
+User
+GET /api/posts/trending 304 in 106ms :: {"posts":[]}
+2025-12-31 11:06:28.86
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 281ms :: {"count":0}
+2025-12-31 11:06:34.00
+3e7dc68a
+User
+GET /api/admin/metrics 304 in 278ms :: {"metrics":{"totalUsers":11,"activeSessi…
+2025-12-31 11:06:41.56
+3e7dc68a
+User
+GET /api/subscription 304 in 92ms :: {"tierSlug":"tier_5","subscriptionCredits"…
+2025-12-31 11:06:41.80
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 91ms :: {"count":0}
+2025-12-31 11:06:42.00
+3e7dc68a
+User
+GET /api/posts/trending 304 in 284ms :: {"posts":[]}
+2025-12-31 11:06:49.48
+3e7dc68a
+User
+[Billing] Local dev mode - returning mock checkout URL for tier: tier_15
+2025-12-31 11:06:49.51
+3e7dc68a
+User
+GET /api/billing/get-checkout-url 304 in 94ms :: {"checkout_url":"http://localh…
+2025-12-31 11:06:55.45
+3e7dc68a
+User
+GET /api/subscription 304 in 91ms :: {"tierSlug":"tier_5","subscriptionCredits"…
+2025-12-31 11:06:55.74
+3e7dc68a
+User
+GET /api/posts/trending 304 in 94ms :: {"posts":[]}
+2025-12-31 11:06:55.94
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 290ms :: {"count":0}
+2025-12-31 11:07:26.46
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 281ms :: {"count":0}
+2025-12-31 11:07:43.00
+3e7dc68a
+User
+GET /api/posts/following 200 in 301ms :: {"posts":[]}
+2025-12-31 11:07:50.84
+3e7dc68a
+User
+GET /api/admin/metrics 304 in 271ms :: {"metrics":{"totalUsers":11,"activeSessi…
+2025-12-31 11:07:52.39
+3e7dc68a
+User
+GET /api/admin/users 200 in 94ms :: {"users":[{"id":"bcb6ee06-e4ec-4fb1-8737-e7…
+2025-12-31 11:07:56.75
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 90ms :: {"count":0}
+2025-12-31 11:07:59.12
+3e7dc68a
+User
+PATCH /api/admin/users/bcb6ee06-e4ec-4fb1-8737-e75c81bee422 200 in 124ms :: {"u…
+2025-12-31 11:07:59.30
+3e7dc68a
+User
+[Sync] Event pushed successfully: user.updated
+2025-12-31 11:07:59.40
+3e7dc68a
+User
+GET /api/admin/users 304 in 121ms :: {"users":[{"id":"bcb6ee06-e4ec-4fb1-8737-e…
+2025-12-31 11:08:27.27
+3e7dc68a
+User
+GET /api/messages/unread-count 304 in 279ms :: {"count":0}
+2025-12-31 11:09:54.97
+3e7dc68a
+User
+POST /api/admin/command 200 in 2765ms :: {"message":"Subscription updated","use…
+2025-12-31 11:09:55.09
+3e7dc68a
+User
+POST /api/admin/command 200 in 98ms :: {"message":"User enabled","user":{"id"

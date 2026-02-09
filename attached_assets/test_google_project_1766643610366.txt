@@ -1,0 +1,87 @@
+﻿import os
+import google.auth
+from google.auth.transport.requests import Request
+import requests
+
+
+def debug_connection():
+    print("🔍 DIAGNOSTIC REPORT")
+    print("====================")
+
+
+    # 1. CHECK ENVIRONMENT VARIABLES
+    print("\n[Step 1] Checking Environment Variables...")
+    env_project = os.environ.get("GOOGLE_CLOUD_PROJECT")
+    env_creds = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+    
+    if env_project:
+        print(f"✅ GOOGLE_CLOUD_PROJECT found: {env_project}")
+    else:
+        print("❌ GOOGLE_CLOUD_PROJECT is NOT set.")
+
+
+    if env_creds:
+        print(f"ℹ️  GOOGLE_APPLICATION_CREDENTIALS: {env_creds}")
+    else:
+        print("ℹ️  Using default environment credentials (normal for Replit).")
+
+
+    # 2. CHECK AUTHENTICATION
+    print("\n[Step 2] Authenticating...")
+    try:
+        credentials, project_id = google.auth.default()
+        credentials.refresh(Request())
+        access_token = credentials.token
+        print("✅ Credentials Loaded Successfully.")
+        print(f"🔑 Auth Project ID detected: {project_id}")
+        
+        # Comparison Check
+        if env_project and project_id and env_project != project_id:
+             print(f"⚠️  WARNING: Mismatch! Env Var says '{env_project}' but Creds say '{project_id}'")
+             print("   (The API call below uses the Env Var ID, which is what your app uses)")
+             
+    except Exception as e:
+        print(f"❌ Auth Failed: {e}")
+        return
+
+
+    # 3. TEST API CONNECTION (The "Smoke Test")
+    # We use the correct Project ID to test the Veo endpoint
+    target_project = env_project if env_project else project_id
+    location = "us-central1"
+    
+    if not target_project:
+        print("❌ Cannot proceed: No Project ID found.")
+        return
+
+
+    print(f"\n[Step 3] Pinging Vertex AI (Project: {target_project})...")
+    
+    # We check the specific model endpoint to see if we have access
+    url = f"https://{location}-aiplatform.googleapis.com/v1/projects/{target_project}/locations/{location}/publishers/google/models/veo-3.1-fast-generate-001"
+    
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/json"
+    }
+    
+    response = requests.get(url, headers=headers)
+    
+    if response.status_code == 200:
+        print("\n✅ SUCCESS: Connection Verified!")
+        print(f"   The API is active and you have permission to access Veo 3.1.")
+        print(f"   Model Name: {response.json().get('name')}")
+    elif response.status_code == 403:
+        print("\n❌ ERROR: 403 Permission Denied.")
+        print("   Reason: Your credentials are valid, but the 'Vertex AI API' is not enabled.")
+        print("   Fix: Go to Google Cloud Console -> Search 'Vertex AI API' -> Click ENABLE.")
+    elif response.status_code == 404:
+        print("\n❌ ERROR: 404 Not Found.")
+        print(f"   Reason: The Project ID '{target_project}' does not exist.")
+    else:
+        print(f"\n❌ Unexpected Error: {response.status_code}")
+        print(response.text)
+
+
+if __name__ == "__main__":
+    debug_connection()

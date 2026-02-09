@@ -1,0 +1,46 @@
+Feature Request: Subscription & Credit Management System Role: Full Stack Developer Context: This app is a satellite node in the "Three Tears" ecosystem. The Main App Three Tears handles the actual billing. This app manages the local credit balance and enforces feature limits based on the user's tier.
+Core Requirements:
+1. Data Model Updates (Users Table)
+* Add the following columns to the existing Users table:
+   * tier_slug (String, Default: 'free')
+   * credits (Integer, Default: 10)
+   * subscription_end (Timestamp, Nullable)
+2. Configuration: Tier Mapping
+* Create a configuration constant (e.g., in config.py or a helper service) to map tiers to credit refill amounts.
+   * free: 10 Credits (One-time or monthly reset logic).
+   * tier_5: 100 Credits.
+   * tier_15: 200 Credits.
+   * tier_30: 400 Credits.
+   * tier_60: 800 Credits.
+3. Backend Module: The Webhook Listener (The "Refill")
+* Endpoint: POST /webhooks/billing
+* Security: Verify the request signature using the Three Tears JWKS (Public Key from Main App). Reject if invalid.
+* Event Handling:
+   * On subscription.updated / subscription.renewed:
+      * Read user_id and tier_slug from payload.
+      * Read credits_refill from payload (or lookup in local config).
+      * Action: Update the user's tier_slug, set subscription_end date, and SET credits = credits_refill (Reset to full capacity).
+4. Backend Module: The Gatekeeper (Middleware)
+* Function: check_credits(cost=1)
+* Logic:
+   * Fetch current user.
+   * Check: If credits < cost:
+      * Throw 402 Payment Required error.
+      * Return JSON: { "error": "insufficient_credits", "redirect_url": "/subscription" }.
+   * Deduct: If sufficient, run UPDATE users SET credits = credits - :cost immediately.
+   * Return: Success.
+* Usage: Apply this dependency to all AI generation endpoints.
+5. Frontend UI: Subscription Page
+* Route: /subscription
+* Design: Display 5 pricing cards (Free, $5, $15, $30, $60).
+   * Current Tier: Highlight the card matching user.tier_slug.
+   * Features: Show "X Credits/Month" based on the mapping above.
+* Action (Upgrade Button):
+   * When user clicks "Upgrade" on the $5 Tier:
+   * Call backend API: GET /api/billing/get-checkout-url?tier=tier_5.
+   * Backend Logic: Request the checkout URL from the Main App ({MAIN_APP_URL}/api/billing/checkout-url).
+   * Redirect: Send the user to the returned Stripe URL.
+6. Frontend UI: Profile & Limits
+* Navigation: Add "My Subscription" link to the user dropdown menu.
+* Credit Display: Show a badge in the navbar: "Credits: {user.credits}".
+* Empty State: When an AI request fails with 402 Payment Required, automatically open a modal or toast saying "Out of credits! Upgrade now?" with a link to /subscription.

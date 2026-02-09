@@ -1,0 +1,1 @@
+nohup bash -c 'cd avatar-agent && python3 agent.py dev' > /tmp/avatar_agent.log 2>&1 &

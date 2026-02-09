@@ -1,0 +1,109 @@
+{
+  "id": "a215b2bd-a66c-479b-b75c-da4ed42dc9fe",
+  "createdAt": "2026-01-03T05:28:51.948Z",
+  "runtimeVersion": "exposdk:54.0.0",
+  "launchAsset": {
+    "key": "bundle-1767418131948-15567",
+    "contentType": "application/javascript",
+    "url": "https://97cde908-759e-4961-baf7-f2aeb5c82414-00-273czoito2m38.spock.replit.dev/1767418131948-15567/_expo/static/js/ios/bundle.js"
+  },
+  "assets": [],
+  "metadata": {},
+  "extra": {
+    "eas": {},
+    "expoClient": {
+      "name": "Mien Kingdom",
+      "slug": "mien-kingdom",
+      "version": "1.0.0",
+      "orientation": "portrait",
+      "icon": "./assets/main-app-icon.png",
+      "scheme": "mienkingdom",
+      "userInterfaceStyle": "automatic",
+      "newArchEnabled": true,
+      "ios": {
+        "supportsTablet": true,
+        "bundleIdentifier": "com.mienkingdom.app"
+      },
+      "android": {
+        "adaptiveIcon": {
+          "backgroundColor": "#DC2626",
+          "foregroundImage": "./assets/main-app-icon.png",
+          "foregroundImageUrl": "https://97cde908-759e-4961-baf7-f2aeb5c82414-00-273czoito2m38.spock.replit.dev/assets/./assets/main-app-icon.png"
+        },
+        "edgeToEdgeEnabled": true,
+        "predictiveBackGestureEnabled": false,
+        "package": "com.mienkingdom.app"
+      },
+      "web": {
+        "output": "single",
+        "favicon": "./assets/favicon.png"
+      },
+      "plugins": [
+        [
+          "expo-splash-screen",
+          {
+            "image": "./assets/images/splash-icon.png",
+            "imageWidth": 200,
+            "resizeMode": "contain",
+            "backgroundColor": "#DC2626",
+            "dark": {
+              "backgroundColor": "#111827"
+            }
+          }
+        ],
+        "expo-web-browser",
+        "expo-secure-store"
+      ],
+      "experiments": {
+        "reactCompiler": true
+      },
+      "extra": {
+        "expoPublicDomain": "97cde908-759e-4961-baf7-f2aeb5c82414-00-273czoito2m38.spock.replit.dev:5000"
+      },
+      "_internal": {
+        "isDebug": false,
+        "projectRoot": "/home/runner/workspace",
+        "dynamicConfigPath": "/home/runner/workspace/app.config.ts",
+        "staticConfigPath": {},
+        "packageJsonPath": "/home/runner/workspace/package.json",
+        "pluginHistory": {
+          "expo-splash-screen": {
+            "name": "expo-splash-screen",
+            "version": "31.0.11"
+          },
+          "expo-web-browser": {
+            "name": "expo-web-browser",
+            "version": "15.0.9"
+          },
+          "expo-secure-store": {
+            "name": "expo-secure-store",
+            "version": "15.0.8"
+          }
+        }
+      },
+      "sdkVersion": "54.0.0",
+      "platforms": [
+        "ios",
+        "android",
+        "web"
+      ],
+      "androidStatusBar": {
+        "backgroundColor": "#DC2626"
+      },
+      "iconUrl": "https://97cde908-759e-4961-baf7-f2aeb5c82414-00-273czoito2m38.spock.replit.dev/assets/./assets/main-app-icon.png",
+      "hostUri": "97cde908-759e-4961-baf7-f2aeb5c82414-00-273czoito2m38.spock.replit.dev/ios"
+    },
+    "expoGo": {
+      "debuggerHost": "97cde908-759e-4961-baf7-f2aeb5c82414-00-273czoito2m38.spock.replit.dev/ios",
+      "developer": {
+        "tool": "expo-cli",
+        "projectRoot": "/home/runner/workspace"
+      },
+      "packagerOpts": {
+        "dev": false
+      },
+      "mainModuleName": "client/index"
+    },
+    "scopeKey": "@anonymous/mien-kingdom-b50a57e4-c429-4b38-8a7d-2dc1738d6cd7"
+  }
+}

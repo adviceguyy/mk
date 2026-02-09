@@ -1,0 +1,95 @@
+Feature Request: "Three Tears" Ecosystem Integration Role: Backend Engineer Context: This app is part of a larger venture studio managed by a central system called "Three Tears". It must include a standard integration module to allow the central system to discover it, manage it, and handle its support tickets.
+
+Configuration Constants (Hardcoded for this Build):
+
+MAIN_APP_BASE_URL: https://c25de8ca-130c-4909-8352-fe720adb2bba-00-32oftal7avqfm.spock.replit.dev
+
+ENROLLMENT_SECRET: 421132291606df24e899d0ddbeb120afc492049f3df8b1e73cfaa4734c268720
+
+Core Requirements:
+
+1. Module: Auto-Discovery (The "Push")
+Goal: On startup, this app must register itself with the Main App using the constants above. Logic:
+
+Startup Task:
+
+Check a local database table Settings for an existing registered_app_id.
+
+IF Missing:
+
+Gather metadata: App Name (from config), Base URL (detect current Replit URL), Description.
+
+Send POST {MAIN_APP_BASE_URL}/api/discovery/register.
+
+Headers: X-Enrollment-Key: {ENROLLMENT_SECRET}.
+
+Payload: { "name": "...", "url": "...", "description": "..." }.
+
+Action: Save the returned app_id to the local Settings table.
+
+IF Present:
+
+Send PUT {MAIN_APP_BASE_URL}/api/discovery/heartbeat/{app_id} to update the URL in case it changed.
+
+2. Module: Secure Admin Listener (The "Receiver")
+Goal: Allow the "Three Tears" AI Agent to execute commands on this app (e.g., Ban User, Refund). Security:
+
+JWKS Verification:
+
+Implement a dependency that fetches the Public Key from: {MAIN_APP_BASE_URL}/.well-known/jwks.json
+
+Use PyJWKClient (or similar) to cache this key.
+
+Verify the Authorization: Bearer <token> header on incoming admin requests using RSA-4096 signature verification.
+
+Reject any token where iss (issuer) is not "Three Tears" or exp (expiry) has passed.
+
+Endpoints:
+
+POST /api/admin/command
+
+Protected By: JWKS Verification.
+
+Payload: { "action": "string", "params": { ... } }.
+
+Logic: Switch statement to handle standard actions:
+
+"get_user_details": Return user row by ID/Email.
+
+"ban_user": Set is_active = False for user.
+
+"reset_password": Generate temp password and return it.
+
+3. Module: Omni-Channel Support Hooks
+Goal: Feed user issues to the Main App.
+
+Chat Widget:
+
+In the main HTML template (base.html), inject the generic script:
+
+<script src="{MAIN_APP_BASE_URL}/widget.js" data-app-id="{LOCAL_APP_ID}"></script>
+
+Contact Form:
+
+If the app has a "Contact Us" form, the backend handler must forward the message to {MAIN_APP_BASE_URL}/api/ingest/ticket alongside the app_id and user_email.
+
+4. Module: Event Broadcasting (Webhooks)
+Goal: Notify Main App of critical business events. Logic:
+
+Create a helper function broadcast_event(event_name, data).
+
+It sends a POST to {MAIN_APP_BASE_URL}/webhooks/ingest.
+
+Triggers: Call this function when:
+
+A new user signs up (user.created).
+
+A payment succeeds/fails (payment.success, payment.failed).
+
+Deliverables:
+
+integration/three_tears.py: Handles the handshake and JWKS logic using the hardcoded URL and Token.
+
+integration/middleware.py: The security dependency for FastAPI.
+
+routers/admin.py: The endpoint receiving the commands.

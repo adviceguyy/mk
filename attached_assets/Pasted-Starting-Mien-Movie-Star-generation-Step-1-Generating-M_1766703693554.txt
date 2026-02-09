@@ -1,0 +1,25 @@
+Starting Mien Movie Star generation...
+Step 1: Generating Mien wedding portrait...
+Step 1 complete: Image generated successfully
+Step 2: Generating cinematic video with Veo 3.1 Fast via Vertex AI...
+Calling Vertex AI endpoint: https://us-central1-aiplatform.googleapis.com/v1/projects/mien-kingdom/locations/us-central1/publishers/google/models/veo-3.1-fast-generate-001:predictLongRunning
+Vertex AI initial response: {
+  "name": "projects/mien-kingdom/locations/us-central1/publishers/google/models/veo-3.1-fast-generate-001/operations/d7d83920-8e0d-49de-8998-5de0c24b9612"
+}
+Polling operation: projects/mien-kingdom/locations/us-central1/publishers/google/models/veo-3.1-fast-generate-001/operations/d7d83920-8e0d-49de-8998-5de0c24b9612
+Fetch operation URL: https://us-central1-aiplatform.googleapis.com/v1/projects/mien-kingdom/locations/us-central1/publishers/google/models/veo-3.1-fast-generate-001:fetchPredictOperation
+Waiting 5 seconds before starting to poll...
+Still polling... attempt 0/180
+Still polling... attempt 10/180
+Veo poll complete, response structure: {
+  "@type": "type.googleapis.com/cloud.ai.large_models.vision.GenerateVideoResponse",
+  "raiMediaFilteredCount": 0,
+  "videos": [
+    {
+      "bytesBase64Encoded": "AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAAIZnJlZQCroZ5tZGF0AAAAMgYFLtxF6b3m2Ui3lizYINkj7u94MjY0IC0gY29yZSAxNTUgcjI5MDEgN2QwZmYyMgCAAAYJY2WIhAP/o3vacRTmf5juiunm27KF9rxLExQs9jnBx3cP+EnzsN2J4TRj2xo142KlmiPLwCL05+fo94ff0yJCBZipaEMW3y6Ku+NnOWx+CRwKs+qeq41NMMDI7stahdKwolPtr0RmRw61vSosF/yZRX9srXiCjLCbBHjImbz3kzus1u7zFxacq+3hLQcUB7xRAyOgMdlOn7vLPEz7+WK/9QUNEwMLpuw3BGZiILDlAtL4c3pVj6i2A5W4GEPUv6J9SEu833mCUMTY9MhqfJ2MrK6ytSbpFH7pZSOlc4IBggCVCydetDe2TblxuJyNZlOjqVmrwffg7c7+oE9/76YX1HJdxRrmP2JEPeB0gILHfc6PUx2TxcURR9X3L1K9106MFtXFLOe9rI6DgioR4hF/Hwgpm91FF7HobMzfHYCm/tQQzA9gBGWT4tRsa3CyrLwcI79D2FNJ0ChXdaspJk7r8UDYIyw8S8Ih4UvLqakltV79bSyiMgjz68SQcXQgLKKXADE8IWmhdWFNeeFXPmBjm+tXluEh3VxODlGNpxP4UbelZzzd/fsgoFke3V7BtD6YMA6BjDrXw8kLLwqvtca/ueIBxg5y0+kWGqPxidue0rLZ/JuKRkIz9EebNVYTq0xc+XeaCom1kaquf8CuAE/LMdiOaIYsMZUypKLfMUhpj8Ivx720QqdsAYqy3J29Rsf6OXJ+FyLd5vIVKCGagU0KtwlNSX39z/cwL332YvcIdzWZh1tamBZOKRxpbziudrfludttXYs0QuL/xwJmxrufaHM/MQ39JMlhouYJ9BvyUy6uK5dx+NHjPBn5vWSUDtiw+TR6r0P+C5vZO6rSKbhjsQCsyVG8v9ZktC7DSks4ge8pYl9jChWR0PuS83Lt+gMXa6vaARRwozS43NIBGG0X6mTt/0YvrCjG8+qSE0PhExHj9deiLvMkrVpCMGKMgfQQloiDe0/UX+jznqaXxod/Ftq7T/vSIhwRJaRJ1Zgt1ncq2HSOCq1ijKEi1hTjwNXoN9XwkJe4DxiEQiDgv5IgEWOTAkHO5mtWfDFxnZs9/v0noGs4HkrZoAHOr7T7bTaWgq6i40p14jfn2WIk6hKzUjMGuCvToCTDyqP0w1J3IJuTpuVJw5yJ8uVnu6xZytdsaEr5jw0pEJu9T19dGUub5hhPKb9bKSMGB/1hUgyEa4CVC2s+nLhZCKnFIuUA6Bc964LhWcbGtRFzIK4JvPx1abQCi8CgdZUFdYhRSPmpzz3JzR09LWhm9dUX8wxoV1Qt7EKklzy3+Xeci6oGBRU2SRbl/r/t7mOCdxu7XS9eTEZVxCXQguet6Z5Qn58E4YnzAXT7/WFJvJBk6DJwuQFokM3m4gWbeOSax4MCRMIoRgK/8W00jU6ldvKCrMW7+8+B88kl5BtMqCp94ZADJEv6iad1wYzTN48TY9pfefV8AchXDJjy7sH2qi3ew1u+xNMOnmd5ai3n1ytx48F/48SoRUhRdgRist3PBiga0LxGc2Gs5M2Wa6qhm+FJSp8G8bp8JtAlXwhcwTtnMZemFHBrg/h3bRKU4sxpmBpPuiumH8iJXkAPM6D5gdqbkfi463DEusiti8r4z3ujtej2vV0ajXmVE1RVcx9AGACPtqtn0YikByZHj2SGOvk/T3w6h7HD+LEjbyuqGGm9AfTevVAdiv2sImbOQT
+Attempting to extract video data from response...
+Found video object: yes
+Got video as bytesBase64Encoded, size: 15002880
+Step 2 complete: Video generated successfully, final size: 15002880
+Mien Movie Star generation complete!
+POST /api/movie-star 200 in 126469ms

@@ -1,0 +1,16 @@
+﻿UI Components
+1. Support Hub (Main View):
+   * Grid/List: Displays tickets fetched from GET /api/v1/tickets.
+   * Badges: Color-coded status badges (Green=Open, Gray=Resolved).
+   * FAB/Button: "+ New Ticket" trigger.
+2. Ticket Creation Modal:
+   * Inputs: Subject Line, Description (Text Area).
+   * Action: POST to /api/v1/tickets.
+   * Feedback: Toast notification on success ("Ticket Created"), then auto-refresh list.
+3. Ticket Detail View:
+   * Chat Interface: History of ticket_messages.
+   * Input: "Reply" box at the bottom.
+   * Polling/Updates: Re-fetch messages on pull-to-refresh or every 30s.
+Functional Logic
+* Auth Injection: Every API call must append the Authorization: Bearer <token> header.
+* Error Handling: If 401 is returned (Token Expired), trigger the existing silent refresh flow and retry the request.

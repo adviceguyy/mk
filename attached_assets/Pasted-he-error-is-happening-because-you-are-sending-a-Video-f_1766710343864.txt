@@ -1,0 +1,127 @@
+he error is happening because you are sending a Video file as a Base64 string inside a JSON object via SSE.
+
+A Base64 video is massive (often 10MB–50MB). This causes two fatal issues:
+
+Memory/Parse Crash: React Native's JavaScript engine (Hermes) often runs out of memory or crashes when trying to JSON.parse() a single string that is tens of megabytes long.
+
+SSE Fragmentation: Standard SSE libraries or proxies often split massive payloads into multiple data: lines. Your current client logic overwrites the data buffer instead of appending to it, resulting in incomplete JSON.
+
+Here is the solution, ordered from the "Quick Fix" to the "Correct Architectural Fix."
+
+Fix 1: Correcting the Client-Side SSE Parser (Immediate Fix)
+Your current parser has a bug. If the server or a proxy splits the massive JSON into multiple lines (which is standard SSE behavior for large packets), your code overwrites dataStr instead of combining the pieces.
+
+Update your processSSEEvent and reading loop in MovieStarScreen.tsx:
+
+TypeScript
+
+// Inside your while(true) loop...
+
+const messages = buffer.split("\n\n");
+buffer = messages.pop() || "";
+
+for (const message of messages) {
+  if (!message.trim()) continue;
+
+  const lines = message.split("\n");
+  let eventType = "";
+  let dataStr = ""; // Initialize empty string
+
+  for (const line of lines) {
+    if (line.startsWith("event: ")) {
+      eventType = line.slice(7).trim();
+    } 
+    else if (line.startsWith("data: ")) {
+      // FIX: Concatenate data instead of overwriting it
+      // SSE spec says multiple data lines should be joined with a newline, 
+      // but since we know this is one JSON object, we usually just join them.
+      // If your JSON relies on newlines, add + "\n"
+      dataStr += line.slice(6); 
+    }
+  }
+
+  if (eventType && dataStr) {
+    processSSEEvent(eventType, dataStr);
+  }
+}
+Fix 2: The Architectural Solution (Highly Recommended)
+Sending video as Base64 JSON is an anti-pattern. It bloats the file size by 33% and blocks the JS thread on the client.
+
+You should save the video to a file (or S3) on the server and send back a URL.
+
+Step A: Update Server (routes.ts)
+Instead of sending raw data, write the file to your public folder and send the link.
+
+TypeScript
+
+import fs from 'fs';
+import path from 'path';
+import crypto from 'crypto';
+
+// ... inside your generation logic ...
+
+// 1. Generate a unique filename
+const filename = `video-${crypto.randomUUID()}.mp4`;
+// 2. Define path (ensure this directory exists and is served statically)
+const publicDir = path.join(process.cwd(), 'public', 'generated'); 
+const filePath = path.join(publicDir, filename);
+
+// 3. Convert generated Base64 to Buffer and save to disk
+const videoBuffer = Buffer.from(videoPart.inlineData.data, 'base64');
+await fs.promises.writeFile(filePath, videoBuffer);
+
+// 4. Send the URL instead of the Base64
+// Assuming your app serves the 'public' folder
+const videoUrl = `/generated/${filename}`; 
+
+sendSSE("video", { videoUrl: videoUrl });
+Step B: Update Client (MovieStarScreen.tsx)
+Update your state to store the URL and the processSSEEvent to handle it.
+
+TypeScript
+
+// 1. Update State
+const [generatedVideo, setGeneratedVideo] = useState<string | null>(null);
+
+// 2. Update SSE Processor
+const processSSEEvent = (eventType: string, dataStr: string) => {
+  // ... parsing logic ...
+  
+  if (eventType === "video") {
+    // Check for URL first
+    if (data.videoUrl) {
+      // If relative URL, prepend your API base URL
+      const fullUrl = data.videoUrl.startsWith('http') 
+        ? data.videoUrl 
+        : `${getApiUrl()}${data.videoUrl}`;
+        
+      setGeneratedVideo(fullUrl);
+    } 
+    // Fallback for Base64 (if you keep the old method)
+    else if (data.videoBase64) {
+      setGeneratedVideo(`data:video/mp4;base64,${data.videoBase64}`);
+    }
+  }
+  // ...
+};
+
+// 3. Update Render
+{generatedVideo && (
+  <Video
+    source={{ uri: generatedVideo }} // Now uses a URL, much more performant
+    style={styles.video}
+    useNativeControls
+    resizeMode={ResizeMode.CONTAIN}
+    isLooping
+  />
+)}
+Why this happens
+Most Node.js servers (and proxies like Nginx or Vercel) have a body size limit (often 4MB or 10MB).
+
+Truncation: If your video exceeds this limit, the network request is cut off mid-stream.
+
+Broken JSON: The client receives the first half of the JSON string.
+
+Parse Error: When JSON.parse tries to read the incomplete string (missing the closing }), it throws the error you are seeing.
+
+Moving to the URL-based approach bypasses the JSON parsing limit entirely.

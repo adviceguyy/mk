@@ -1,0 +1,25 @@
+﻿Image prompt for step 1:
+
+
+
+
+“Generate a 9:16 vertical still. change the subject(s) in this image to wear elaborate traditional Iu Mien ceremonial wedding attire that's common in Southeast Asia. Do not add additional subjects to the image.
+
+
+If a male subject is present, he should have a dark indigo loose jacket and pants with embroidered trim, and multiple layers of heavy, complex silver chains and necklaces with bell ornaments. He does not have any turban or head jewelry. He is in his prime athletic tone body. The shot will be on a Brooklyn rooftop at golden hour. The character is performing a dance move.
+
+
+If a female subject is present, she wears the traditional prominent, thick fluffy red yarn ruff collar around her neck, layered with heavy silver necklaces. Her dark jacket is heavily encrusted with intricate silver studs, beads, coins, and colorful geometric embroidery patterns. She has a toned athletic body. She does not wear any jewelry on the head or face. The character(s) is on top of the cliff of a towering scenic mountain in north Vietnam. She is performing a dance move.
+
+
+If there are female and male characters present, both will not have any headpieces on. The characters will be in a futuristic Y2K-inspired dance scene inside a sleek, minimalist dance studio performing a synchronized dance.”
+
+
+
+
+Video prompt for step 2:
+
+
+
+
+“The camera pans zooms and pans with a kpop soundtrack as the subject(s) perform synchronized tick tok dance.”

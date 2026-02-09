@@ -1,0 +1,100 @@
+﻿import os
+import json
+import requests
+from google.oauth2 import service_account
+from google.auth.transport.requests import Request
+
+
+# --- CONFIGURATION ---
+TARGET_PROJECT_ID = "mien-kingdom"
+REGION = "us-central1"
+# ---------------------
+
+
+def run_probe():
+    print(f"📡 PROBING PROJECT: {TARGET_PROJECT_ID}...")
+
+
+    # 1. LOAD CREDENTIALS FROM SECRET
+    json_secret = os.environ.get("GCP_CREDENTIALS_JSON")
+    if not json_secret:
+        print("❌ FAIL: Secret 'GCP_CREDENTIALS_JSON' is missing.")
+        return
+
+
+    try:
+        info = json.loads(json_secret)
+        key_project_id = info.get("project_id")
+        client_email = info.get("client_email")
+        
+        print(f"🔑 Key found for Service Account: {client_email}")
+        print(f"   Key belongs to Project: '{key_project_id}'")
+
+
+        if key_project_id != TARGET_PROJECT_ID:
+            print(f"❌ MISMATCH: Your JSON key is for '{key_project_id}', but you are trying to reach '{TARGET_PROJECT_ID}'.")
+            print("   -> SOLUTION: Download the correct key from the 'mien-kingdom' project.")
+            return
+
+
+        # 2. GENERATE ACCESS TOKEN
+        creds = service_account.Credentials.from_service_account_info(
+            info, scopes=["https://www.googleapis.com/auth/cloud-platform"]
+        )
+        creds.refresh(Request())
+        token = creds.token
+        print("✅ AUTH SUCCESS: Access Token generated.")
+
+
+    except Exception as e:
+        print(f"❌ AUTH CRASH: Could not use the key. Error: {e}")
+        return
+
+
+    # 3. CHECK PROJECT EXISTENCE (Via ResourceManager API)
+    # This checks if the project "exists" for outside viewers
+    print("\n🔍 CHECKING PROJECT VISIBILITY...")
+    url_project = f"https://cloudresourcemanager.googleapis.com/v1/projects/{TARGET_PROJECT_ID}"
+    headers = {"Authorization": f"Bearer {token}"}
+    
+    resp_proj = requests.get(url_project, headers=headers)
+    
+    if resp_proj.status_code == 200:
+        print(f"✅ PROJECT EXISTS! Google confirmed '{TARGET_PROJECT_ID}' is active.")
+        data = resp_proj.json()
+        print(f"   Status: {data.get('lifecycleState')} (Should be ACTIVE)")
+    elif resp_proj.status_code == 403:
+        print("❌ PROJECT EXISTS, BUT BLOCKED (403).")
+        print("   Reason: Your Service Account does not have 'Viewer' or 'Vertex AI User' role.")
+    elif resp_proj.status_code == 404:
+        print("❌ PROJECT NOT FOUND (404).")
+        print("   Reason: The project ID is wrong OR it has been deleted.")
+        return
+    
+    # 4. CHECK VEO MODEL ACCESS
+    print("\n🔍 CHECKING VEO MODEL AVAILABILITY...")
+    # Trying the 'v1' Production Endpoint first
+    url_model = f"https://{REGION}-aiplatform.googleapis.com/v1/projects/{TARGET_PROJECT_ID}/locations/{REGION}/publishers/google/models/veo-3.1-fast-generate-001"
+    
+    resp_model = requests.get(url_model, headers=headers)
+    
+    if resp_model.status_code == 200:
+        print("✅ SUCCESS: Veo 3.1 (001) is AVAILABLE on 'v1' endpoint.")
+        print("   -> Your code should work.")
+    elif resp_model.status_code == 404:
+        print("⚠️  Veo 3.1 (001) NOT FOUND on 'v1'. Checking 'v1beta1'...")
+        
+        # Fallback to Beta
+        url_beta = f"https://{REGION}-aiplatform.googleapis.com/v1beta1/projects/{TARGET_PROJECT_ID}/locations/{REGION}/publishers/google/models/veo-3.1-fast-generate-preview"
+        resp_beta = requests.get(url_beta, headers=headers)
+        
+        if resp_beta.status_code == 200:
+             print("✅ SUCCESS: Veo 3.1 is AVAILABLE on 'v1beta1'.")
+             print("   -> UPDATE YOUR CODE TO USE 'v1beta1' URL.")
+        else:
+             print(f"❌ FAIL: Model not found on Beta either. Status: {resp_beta.status_code}")
+             print("   -> Did you click 'ENABLE' in the Model Garden?")
+
+
+if __name__ == "__main__":
+    run_probe()
